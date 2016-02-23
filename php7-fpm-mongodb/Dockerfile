@@ -2,7 +2,7 @@ FROM php:fpm
 
 MAINTAINER serkin.alexander@gmail.com
 
-RUN apt-get update && apt-get install -y git 
+RUN apt-get update && apt-get install -y git libssl-dev
 
 RUN 	   pecl install mongodb \
 	&& pecl install xdebug-beta \
