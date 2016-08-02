@@ -1,0 +1,28 @@
+FROM php:fpm
+
+MAINTAINER serkin.alexander@gmail.com
+
+RUN apt-get update && apt-get install -y git libssl-dev wget
+
+RUN   docker-php-ext-install zip pdo pdo_mysql mbstring
+
+
+# Install Composer
+
+ENV COMPOSER_VERSION 1.0.0-alpha10
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}
+
+
+# Install Deployer
+
+RUN wget http://deployer.org/deployer.phar
+RUN mv deployer.phar /usr/local/bin/dep
+RUN chmod +x /usr/local/bin/dep
+
+# Install Phalcon 3
+
+WORKDIR /tmp
+RUN git clone --depth=1 -b 3.0.x https://git@github.com/phalcon/cphalcon.git \
+ 	&& cd cphalcon/build \
+  && ./install
+RUN echo "extension=phalcon.so" > $PHP_INI_DIR/conf.d/phalcon.ini
