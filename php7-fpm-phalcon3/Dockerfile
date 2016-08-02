@@ -21,7 +21,6 @@ RUN chmod +x /usr/local/bin/dep
 
 # Install Phalcon 3
 
-WORKDIR /tmp
 RUN git clone --depth=1 -b 3.0.x https://git@github.com/phalcon/cphalcon.git \
  	&& cd cphalcon/build \
   && ./install
