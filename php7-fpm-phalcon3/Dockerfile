@@ -15,9 +15,6 @@ RUN echo "extension=phalcon.so" > $PHP_INI_DIR/conf.d/phalcon.ini
 
 # Install Phalcon 3 dev tools
 
-RUN cd /tmp && git clone --depth=1 -b 3.0.x https://git@github.com/phalcon/phalcon-devtools.git \
- 	&& cd phalcon-devtools \
-  && cp phalcon.php phalcon \
-  && chmod ugo+x phalcon
-
-ENV PATH=$PATH:/tmp/phalcon-devtools
+RUN composer global require --dev 'phalcon/devtools:3.0.x-dev' && \
+	ln -s ~/.composer/vendor/bin/phalcon.php /usr/bin/phalcon && \
+	chmod ugo+x /usr/bin/phalcon
