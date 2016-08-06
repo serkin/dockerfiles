@@ -2,7 +2,7 @@ FROM php:fpm
 
 MAINTAINER serkin.alexander@gmail.com
 
-RUN apt-get update && apt-get install -y git libssl-dev wget
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git libssl-dev wget
 
 RUN   docker-php-ext-install zip \
 	 && docker-php-ext-install mbstring
@@ -10,7 +10,7 @@ RUN   docker-php-ext-install zip \
 
 # Install Composer
 
-ENV COMPOSER_VERSION 1.0.0-alpha10
+ENV COMPOSER_VERSION 1.2.0
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}
 
 
