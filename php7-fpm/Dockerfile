@@ -2,20 +2,13 @@ FROM php:fpm
 
 MAINTAINER serkin.alexander@gmail.com
 
-RUN apt-get update && apt-get upgrade -y && apt-get install -y git libssl-dev wget
+WORKDIR /var/www/app
 
-RUN   docker-php-ext-install zip \
-	 && docker-php-ext-install mbstring
+RUN apt-get update && apt-get upgrade -y && apt-get install -y git libssl-dev wget nginx supervisor
+RUN docker-php-ext-install zip mbstring pdo pdo_mysql
 
 
 # Install Composer
 
 ENV COMPOSER_VERSION 1.2.0
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}
-
-
-# Install Deployer
-
-RUN wget http://deployer.org/deployer.phar
-RUN mv deployer.phar /usr/local/bin/dep
-RUN chmod +x /usr/local/bin/dep
