@@ -12,3 +12,7 @@ RUN docker-php-ext-install zip mbstring pdo pdo_mysql
 
 ENV COMPOSER_VERSION 1.2.0
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=${COMPOSER_VERSION}
+
+# Install Prestissimo
+
+RUN /usr/local/bin/composer global require hirak/prestissimo
